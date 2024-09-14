@@ -34,7 +34,7 @@ add deps:
     docker compose run --rm {{SERVICE}} npm install {{deps}}
 
 [doc('
-    Run the project in development mode.
+    Run the storybook project in development mode.
     ex:
         just dev
 ')]
