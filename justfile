@@ -1,3 +1,5 @@
+set quiet
+
 SERVICE := 'opire_design_system'
 
 [private]
@@ -10,7 +12,7 @@ alias i := install
         just
 ')]
 default:
-    @just --list
+    just --list
 
 [doc('
     Install the project dependencies.
@@ -19,7 +21,7 @@ default:
         just i
 ')]
 install:
-    @docker compose run --rm {{SERVICE}} npm install
+    docker compose run --rm {{SERVICE}} npm install
     
 [doc('
     Add a new dependency to the project.
@@ -29,7 +31,7 @@ install:
         just add "-D dev-package"
 ')]
 add deps:
-    @docker compose run --rm {{SERVICE}} npm install {{deps}}
+    docker compose run --rm {{SERVICE}} npm install {{deps}}
 
 [doc('
     Run the project in development mode.
@@ -37,7 +39,7 @@ add deps:
         just dev
 ')]
 dev:
-    @docker compose run --rm --service-ports {{SERVICE}} npm run dev
+    docker compose run --rm --service-ports {{SERVICE}} npm run dev
 
 [doc('
     Build the library.
@@ -45,7 +47,7 @@ dev:
         just build-lib
 ')]
 build-lib:
-	@docker compose run --rm {{SERVICE}} npm run build:lib
+	docker compose run --rm {{SERVICE}} npm run build:lib
 
 [doc('
     Build the storybook project.
@@ -53,7 +55,7 @@ build-lib:
         just build-storybook
 ')]
 build-storybook:
-	@docker compose run --rm {{SERVICE}} npm run build:storybook
+	docker compose run --rm {{SERVICE}} npm run build:storybook
 
 [doc('
     Run the linter.
@@ -61,7 +63,7 @@ build-storybook:
         just lint
 ')]
 lint:
-	@docker compose run --rm {{SERVICE}} npm run lint
+	docker compose run --rm {{SERVICE}} npm run lint
 
 [doc('
     Run the linter and fix the issues.
@@ -69,7 +71,7 @@ lint:
         just lint-fix
 ')]
 lint-fix:
-	@docker compose run --rm {{SERVICE}} npm run lint:fix
+	docker compose run --rm {{SERVICE}} npm run lint:fix
 
 [doc('
     Run the tests.
@@ -77,7 +79,7 @@ lint-fix:
         just test
 ')]
 test:
-	@docker compose run --rm {{SERVICE}} npm run test
+	docker compose run --rm {{SERVICE}} npm run test
 
 [doc('
     Run the tests in watch mode.
@@ -85,4 +87,28 @@ test:
         just test-watch
 ')]
 test-watch:
-	@docker compose run --rm {{SERVICE}} npm run test:watch
+	docker compose run --rm {{SERVICE}} npm run test:watch
+
+[doc('
+    Upgrade the major version.
+    ex:
+        just version-major
+')]
+version-major:
+	docker compose run --rm {{SERVICE}} npm version major
+
+[doc('
+    Upgrades the minor version.
+    ex:
+        just version-minor
+')]
+version-minor:
+	docker compose run --rm {{SERVICE}} npm version minor
+
+[doc('
+    Upgrades the patch version.
+    ex:
+        just version-patch
+')]
+version-patch:
+    docker compose run --rm {{SERVICE}} npm version patch
