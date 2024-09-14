@@ -1,0 +1,9 @@
+services:
+  opire_design_system:
+    image: node:22-alpine
+    container_name: opire_design_system
+    working_dir: "/app"
+    volumes:
+      - .:/app
+    ports:
+      - 3004:3004
